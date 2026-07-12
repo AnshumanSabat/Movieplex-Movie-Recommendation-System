@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+        <style type="text/tailwindcss">
+@theme {
+    --color-page: #0D1117;
+    --color-surface: #161B22;
+    --color-hover: #21262D;
+    --color-border: #30363D;
+    --color-accent: #2F81F7;
+    --color-accent-hover: #1F6FEB;
+    --color-text: #E6EDF3;
+    --color-muted: #8B949E;
+    --color-subtle: #6E7681;
+    --color-done: #3FB950;
+    --color-danger: #F85149;
+    --color-pin: #E3B341;
+    --color-pin-hover: #D29922;
+    --color-show: #58A6FF;
+    --color-show-hover: #79C0FF;
+}
+    </style>
+</head>
+<body  class="min-h-screen bg-page overflow-hidden flex items-center justify-center">
+    <img src="/gifs/space_bg.gif" class="fixed top-0 left-0 w-full h-full object-cover -z-10">
+<div class="flex flex-col items-center bg-surface border border-border rounded-lg shadow-lg p-10 w-full max-w-sm  ">
+    <h1 class="text-text font-bold text-2xl">Register</h1>
+    <form action="/register" method="POST" class="mt-2">
+            <input class="w-full px-4 py-2 rounded-lg bg-page border border-border text-text placeholder-subtle focus:outline-none focus:border-accent mb-2" type="text" placeholder="name" name="name">
+            <input class="w-full px-4 py-2 rounded-lg bg-page border border-border text-text placeholder-subtle focus:outline-none focus:border-accent" type="text" placeholder="username" name="username">
+            <input min="1" class="w-full px-4 py-2 rounded-lg mt-2 mb-2 bg-page border border-border text-text placeholder-subtle focus:outline-none focus:border-accent " type="number"  placeholder="age" name="age">
+            <input class="w-full px-4 py-2 rounded-lg bg-page border border-border text-text placeholder-subtle focus:outline-none focus:border-accent" type="email"  placeholder="email" name="email">
+            <input class="w-full px-4 py-2 rounded-lg mt-2 mb-2 bg-page border border-border text-text placeholder-subtle focus:outline-none focus:border-accent" type="password"  placeholder="password" name="password">
+            <input class="bg-accent hover:bg-accent-hover text-white text-md font-medium tracking-tight rounded-lg border border-border py-2 px-4 w-full cursor-pointer transition-colors duration-150" type="submit" value="Login">
+        </form>
+        <a class="text-text text-md mt-3  hover:underline hover:text-blue-600 " href="/login">Already have an account? Login</a>
+           <% if (error) { %>
+    <p class="text-red-500 text-sm mb-4 tracking-tighter"><%= error %></p>
+<% } %>
+
+    </div>
+    
+</body>
+</html>

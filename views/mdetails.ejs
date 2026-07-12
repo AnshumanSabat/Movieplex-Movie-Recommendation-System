@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScreenHive</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+@theme {
+    --color-page: #0D1117;
+    --color-surface: #161B22;
+    --color-hover: #21262D;
+    --color-border: #30363D;
+    --color-accent: #2F81F7;
+    --color-accent-hover: #1F6FEB;
+    --color-text: #E6EDF3;
+    --color-muted: #8B949E;
+    --color-subtle: #6E7681;
+    --color-done: #3FB950;
+    --color-danger: #F85149;
+    --color-pin: #E3B341;
+    --color-pin-hover: #D29922;
+    --color-show: #58A6FF;
+    --color-show-hover: #79C0FF;
+}
+    </style>
+</head>
+<body class="min-h-screen bg-page text-text ">
+
+    
+    <nav class="flex justify-between items-center px-8 py-2 bg-surface border-b border-border w-full ">
+        <div class="flex items-center gap-3">
+            <img class=" rounded-lg w-15 h-15 object-cover object-centers" src="/gifs/screen_hive_loader.gif">
+            <h1 class="text-lg font-semibold tracking-tight text-text">Movieplex</h1>
+        </div>
+       <div class="flex-1 flex justify-center px-8">
+        <form action="/search" method="/GET" class="w-full max-w-md flex">
+            <input type="text" placeholder="Search movies, shows..." name="q" class="w-full max-w-md px-4 py-2 rounded-lg bg-page border border-border text-text text-sm placeholder-subtle focus:outline-none focus:border-purple-600 transition-colors">
+            <input type="submit" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-purple-600 transition-all value="submit">
+             </form>
+   
+</div>
+        <div class="flex gap-1">
+            <%if(user){%>
+                <a href="/logout" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-danger hover:text-text transition-colors duration-150">Logout</a>
+                <a href="/profile" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150"><%=user.username%></a>
+                <%}else{%>
+                    <a href="/login" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">login</a>
+                    <%}%>
+            
+            <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-hover hover:text-text transition-colors duration-150">Home</a>
+        </div>
+    </nav>
+      <h1 class="font-extrabold italic text-text text-5xl text-center "><%=d.title%></h1>
+    <div class="flex justify-center px-3 mt-5" >
+        <%if(d.backdrop_path){%>
+        <div class=" w-full  bg-surface border border-border rounded-xl p-2  overflow-hidden"     style ="  background-image: url('https://image.tmdb.org/t/p/original<%= d.backdrop_path %>');background-position: center; background-size: cover;"  >
+        <%}else{%>
+            <div class=" w-full  bg-surface border border-border rounded-xl p-2  overflow-hidden"     style ="  background-image: url('https://img.magnific.com/free-photo/abstract-textured-backgound_1258-30495.jpg?semt=ais_hybrid&w=740&q=80');background-position: center; background-size: cover;"  > 
+         <%}%>               
+           <div class="flex flex-col md:flex-row">
+            <%if(d.poster_path){%>
+             <img class=" w-1/4  object-cover object-center rounded-xl border border-border " src="https://image.tmdb.org/t/p/original<%= d.poster_path %>">
+             <%}else{%>
+             <img class=" w-1/4  object-cover object-center rounded-xl border border-border " src="/images/pngtree-no-image-available-icon-flatvector-illustration-pic-design-profile-vector-png-image_40966566.jpg">
+             <%}%>
+
+
+            <div class=" flex  flex-col p-10 border border-border rounded-xl bg-surface/60">
+                   <%if (todaysdate< new Date(d.release_date)){%>
+                    <h1 class=font-bold >Release Status:<span class=" text-2xl font-extrabold p-4">Coming soon..</span></h1>
+                     <%}else{%>
+                         <h1 class=font-bold >Released on:<span class=" text-2xl font-extrabold p-4"><%=d.release_date%></span></h1>
+                         <%}%>
+                 <%if (d.vote_average == 0){%>
+                     <h1 class=font-bold >Ratings:<span class=" text-2xl font-extrabold p-4">Not Rated yet</span></h1>
+                     <%}else{%>
+                         <h1 class=font-bold >Ratings:<span class=" text-2xl font-extrabold p-4">⭐<%=d.vote_average.toFixed(1)%>/10</span></h1>
+                         <%}%>
+                
+                 <h1 class=font-bold >Status:<span class=" text-2xl font-extrabold p-4"><%=d.status%></span></h1>
+                 <h1 class=font-bold >Runtime:<span class=" text-2xl font-extrabold p-4"><%=d.runtime%>mins</span></h1>
+                  <%if (d.budget <10){%>
+                     <h1 class=font-bold >Budget:<span class=" text-2xl font-extrabold p-4">Not Available</span></h1>
+                     <%}else{%>
+                         <h1 class=font-bold >Budget:<span class=" text-2xl font-extrabold p-4"><%=d.budget%></span>-USD</h1>
+                         <%}%>
+                         <%if (d.revenue <10){%>
+                     <h1 class=font-bold >Revenue:<span class=" text-2xl font-extrabold p-4">Not Available</span></h1>
+                     <%}else{%>
+                         <h1 class=font-bold >Revenue:<span class=" text-2xl font-extrabold p-4"><%=d.revenue%></span>-USD</h1>
+                         <%}%>
+                  
+                   <a href="https://www.imdb.com/title/<%= d.imdb_id %>" class=" px-4 py-2 rounded-lg bg-yellow-600 text-sm font-medium text-text hover:scale-105 transition-all outline outline-2 outline-transparent hover:outline-yellow-400 overflow-hidden ">view on imdb?</a>
+                     <div class="flex gap-3">
+                   <% d.genres.forEach(function(g){%>
+                      
+                      <a href="/gsearch/<%=g.id%>"><div class=" bg-surface/50 border border-border rounded-lg hover:scale-105 transition-all hover:border-purple-600"><h1 class="font-bold text-md italic "><%=g.name%></h1></div></a>
+
+                   
+                 
+                    <%});%>
+                     </div>
+                </div>
+                
+                   <div class="flex-1 flex  items-center justify-center">
+              <div class="w-full max-w-xl aspect-video  ">
+                    <div class="border-dashed border-border rounded-lg bg-surface/60"><h1 class="font-bold text-text italic text-center"><%=d.tagline%></h1></div>
+                    <%if(t.results.length>0){%>
+                   <iframe class="w-full h-full rounded-xl mt-1" src="https://www.youtube.com/embed/<%= t.results[0].key %>"></iframe>
+                   <%}else{%>
+                    <img class="w-full h-full rounded-xl mt-1" src="/gifs/trailer_not_available.gif">
+                    <%}%>
+
+             </div>
+                </div>
+                
+                
+                  
+            </div>
+           <div class=" block bg-surface/60 border border-border rounded-lg w-full mt-5 flex justify-center">
+            <p class="font-bold text-text text-center breaking-words text-xl italic">
+                <%=d.overview%>
+                </p>
+            
+            
+            
+            </div>
+
+           
+         </div>
+
+
+
+
+
+        
+         
+            
+            
+            
+            
+           
+        
+        
+        
+        </div>
