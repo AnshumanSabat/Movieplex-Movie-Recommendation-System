@@ -1,5 +1,6 @@
+require("dotenv").config();
 mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost/movie");
+mongoose.connect("process.env.MONGO_URI");
  const userSchema = mongoose.Schema({
     username:String,
     name:String,
