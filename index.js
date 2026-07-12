@@ -60,9 +60,9 @@ app.get("/gsearch/:id",async function(req,res){
      
     let {data}= await tmdb.get(`/discover/movie?with_genres=${req.params.id}`);
      let username = req.cookies.username;
-     if(!username){return res.render("gsearch", { user: null, m :data.results,todaysdate,gtitle,gens2,page});}
+     if(!username){return res.render("gsearch", { user: null, m :data.results,todaysdate,gtitle,gens2,});}
      let user = await usermodel.findOne({username});
-    res.render("gsearch",{user,m :data.results,todaysdate,gtitle,gens2,page});
+    res.render("gsearch",{user,m :data.results,todaysdate,gtitle,gens2,});
 });
 
 app.get("/mdetails/:id",isloggedin,async function(req,res){

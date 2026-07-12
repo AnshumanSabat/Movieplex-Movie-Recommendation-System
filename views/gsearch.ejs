@@ -107,11 +107,4 @@
 <% });%>
 </div>
 <div class="flex justify-center items-center gap-3 mt-2">
-    <%if(page>1){%>
-     <a href="/search?q=<%=useableq%>&page=<%= page - 1 %>" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">Prev</a>
-     <%}%>
-     <%if(page<n){%>
-      <a href="/search?q=<%=useableq%>&page=<%= page + 1 %>" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">Next</a>
-      <%}%>
-      </div>
-      <h1 class="text-xl font-semibold text-white text-center p-2 italic">Currently on page-<%=page%></h1>
+   
