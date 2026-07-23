@@ -108,7 +108,6 @@ function(req,res){
 
     res.cookie("token",token);
     res.cookie("username",req.user.username);
-    console.log("REQ.USER:", req.user);
 
     res.redirect("/");
 });
