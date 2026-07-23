@@ -29,7 +29,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-let basics=` try to use 100-150 words and use bulletins and try to add emojis and talk in english and leave space between each lines    and it should be all about movies  and give them more suggestions and if they talk about specific movies find movie ids which are integers based on tmdb and only tmbd ids and suppose id = movie ids but write the full movie id in the link  and don,t ever forget to give them a link to /localhost:3000/mdetails/id and the link should be in blue colour with a underline `
+let basics=` try to use 100-150 words and use bulletins and try to add emojis and talk in english and leave space between each lines    and it should be all about movies  and give them more suggestions and if they talk about specific movies find movie ids which are integers based on tmdb and only tmbd ids and suppose id = movie ids but write the full movie id in the link  and don,t ever forget to give them a link to https://movieplex-movie-recommendation-system.onrender.com/mdetails/id and the link should be in blue colour with a underline `
 
 app.post("/ai", async function(req, res) {
     let pro = req.body.aiwaladata;
