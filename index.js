@@ -49,6 +49,13 @@ return res.redirect(req.get("Referer"))
 
     
 });
+
+
+app.post("/clear",function(req,res){
+  delete req.session.product;
+  res.redirect(req.get("Referer"));
+
+});
   
 app.get(
   "/auth/google",
