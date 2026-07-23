@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScreenHive</title>
+    <title>MoviePlex</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
 @theme {
@@ -41,19 +41,55 @@
         <input type="submit" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-blue-800 transition-all value="submit"></form>
           
 </div>
-        <div class="flex gap-1">
+        <div class="flex gap-4">
+                        
+                  
+            
+        <%if(user && user.image){%>
+            <a class=" outline outline-1 rounded-full outline-purple-600  hover:scale-150 transition-all duration-300" href="<%=user.image%>"><img class="object-cover object-center rounded-full h-10 w-10" src="<%=user.image%>"></a>
+                <%}%>
             
             <%if(user){%>
-                <h1 class="text-text font-bold text-md tracking-tighter">Welcome,<%=user.name%></h1>
-                <a href="/logout" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-danger hover:text-text transition-colors duration-150">Logout</a>
-                <a href="/profile" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150"><%=user.username%></a>
+                <h1 class="text-text font-bold text-md tracking-tighter flex items-center">Welcome,<%=user.name || user.username%></h1>
+                <a href="/profile" class="  px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150"><%=user.username%></a>
+                 <a href="/logout" class="   px-2 py-2 rounded-lg text-sm font-medium text-muted hover:bg-danger hover:text-text transition-colors duration-150">Logout</a>
                 <%}else{%>
-                    <a href="/login" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">login</a>
+                    <a href="/login" class="  px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">login</a>
                     <%}%>
             
             <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-hover hover:text-text transition-colors duration-150">Home</a>
         </div>
     </nav>
+    
+                    <button id ="asis" class=" fixed bottom-6 right-6 z-60 rounded-full  hover:scale-150 transition-all duration-300"><img src="/gifs/ai_assistant_clapper_purple.gif" class="  object-center rounded-full h-20 w-20" ></button>
+                    
+
+
+                    <%if(product){%>
+                    <div id ="asisbox" class=" flex     flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl">
+                        <%}else{%>
+                            <div id ="asisbox" class=" flex     flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl hidden">
+                        <%}%>
+                    <h1 class="text-text font-bold text-2xl text-center tracking-tight italic ">AI assistant</h1>
+                    <div class=" flex-1  overflow-y-auto text-center">
+                        <%if(user){%>
+                    <h1 class="font-bold text-center">welcome,<%=user.username || user.name%>👋</h1>
+                    <%}%>
+                    <%if(product){%>
+                    <p class="font-bold text-text text-1xl tracking-tight "><%-product%></p>
+                    <%}else{%>
+                        <p class="font-bold text-text text-sm tracking-tight"> speak your mind lil bro</p>
+                        <%}%>
+                        
+                        
+                        </div>
+                    <form class="flex " method="post" action="/ai">
+                            <input name ="aiwaladata" class="px-4 py-2 w-full outline outline-transparent hover:outline-purple-600 border border-border rounded-lg" placeholder="ask me about movies or things similar to them">
+                          <input type="submit" value="Send" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-blue-800 transition-all">
+                    </form>
+                    
+                    </div>
+    
   <div class="flex gap-2 mt-1 justify-center">
       <% gens2.forEach(function(v){%>
                 <a href="/gsearch/<%=v.id%>"><div class="p-3 bg-surface/50 border border-border rounded-lg hover:scale-105 transition-all hover:border-purple-600"><h1 class="font-bold text-md italic "><%=v.name%></h1></div></a>
@@ -64,6 +100,7 @@
 
 <div class="w-1/4 mt-5 bg-surface border border-border"><h1 class="text-text font-bold text-5xl text-center tracking-tight italic ">Trending this week </h1></div>
 <div class="flex flex-wrap justify-center gap-6 mt-5">
+    
     <%m.slice(0,i).forEach(function(movie){ %>
  <div class="flex gap-3 w-full max-w-sm md:max-w-md justify-center mt-6 px-5">
    <a href="/mdetails/<%=movie.id%>">
@@ -254,7 +291,13 @@
 
 
 
-
+    <script>
+                let asis = document.getElementById("asis");
+                let asisbox = document.getElementById("asisbox");
+                asis.onclick=function(){
+                    asisbox.classList.toggle("hidden");
+                }
+                </script>
 
 
 

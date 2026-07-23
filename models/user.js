@@ -7,6 +7,14 @@ mongoose.connect(process.env.MONGO_URI);
     age:Number,
     email:String,
     password:String,
+    image:String,
+    googleId:String,
+      provider: {
+    type: String,
+    enum: ["local", "google","github"],
+    default: "local",
+  },
+  prevchat: [String],
  })
 
 

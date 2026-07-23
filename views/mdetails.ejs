@@ -41,9 +41,12 @@
    
 </div>
         <div class="flex gap-1">
+             <%if(user && user.image){%>
+            <a class=" outline outline-1 rounded-full outline-purple-600  hover:scale-150 transition-all duration-300" href="<%=user.image%>"><img class="object-cover object-center rounded-full h-10 w-10" src="<%=user.image%>"></a>
+                <%}%>
             <%if(user){%>
-                <a href="/logout" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-danger hover:text-text transition-colors duration-150">Logout</a>
                 <a href="/profile" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150"><%=user.username%></a>
+                <a href="/logout" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-danger hover:text-text transition-colors duration-150">Logout</a>
                 <%}else{%>
                     <a href="/login" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">login</a>
                     <%}%>
@@ -51,6 +54,31 @@
             <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-hover hover:text-text transition-colors duration-150">Home</a>
         </div>
     </nav>
+     <button id ="asis" class=" fixed bottom-6 right-6 z-60 rounded-full  hover:scale-150 transition-all duration-300"><img src="/gifs/ai_assistant_clapper_purple.gif" class="  object-center rounded-full h-20 w-20" ></button>
+                    <%if(product){%>
+                    <div id ="asisbox" class=" flex  flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl">
+                        <%}else{%>
+                            <div id ="asisbox" class=" flex     flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl hidden">
+                        <%}%>
+                    <h1 class="text-text font-bold text-2xl text-center tracking-tight italic ">AI assistant</h1>
+                    <div class=" flex-1  overflow-y-auto text-center">
+                        <%if(user){%>
+                    <h1 class="font-bold text-center">welcome,<%=user.username || user.name%>👋</h1>
+                    <%}%>
+                    <%if(product){%>
+                    <p class="font-bold text-text text-1xl tracking-tight "><%-product%></p>
+                    <%}else{%>
+                        <p class="font-bold text-text text-sm tracking-tight"> speak your mind lil bro</p>
+                        <%}%>
+                        
+                        
+                        </div>
+                    <form class="flex " method="post" action="/ai">
+                            <input name ="aiwaladata" class="px-4 py-2 w-full outline outline-transparent hover:outline-purple-600 border border-border rounded-lg" placeholder="ask me about movies or things similar to them">
+                          <input type="submit" value="Send" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-blue-800 transition-all">
+                    </form>
+                    
+                    </div>
       <h1 class="font-extrabold italic text-text text-5xl text-center "><%=d.title%></h1>
     <div class="flex justify-center px-3 mt-5" >
         <%if(d.backdrop_path){%>
@@ -101,6 +129,15 @@
                  
                     <%});%>
                      </div>
+                     <h1 class="font-extrabold text-center text-md underline">Leading Actors</h1>
+                    <% e.slice(0,5).forEach(function(c){%>
+                        <div class=" flex  block bg-surface/50 border border-border rounded-lg hover:scale-105 transition-all hover:border-purple-600 overflow-hidden"><img class="object-cover object-center w-15 h-15" src="https://image.tmdb.org/t/p/w185<%= c.profile_path %>"><h1 class="font-bold text-sm italic inline-block "><span class="text-md font-bold text-danger"><%=c.name%></span> as <span class="text-md font-bold text-danger"><%=c.character%></span></h1></div>
+                        <%});%>
+                        <h1 class="font-extrabold text-center text-md underline">Crew</h1>
+                        <% f.slice(0,5).forEach(function(c){%>
+                        <div class=" flex gap-1 block bg-surface/50 border border-border rounded-lg hover:scale-105 transition-all hover:border-purple-600"><h1 class="font-bold text-sm italic inline-block "><span class="text-md font-bold text-danger"><%=c.name%></span>-<span class="text-md font-bold text-danger"><%=c.job%></span></div>
+                        <%});%>
+                        
                 </div>
                 
                    <div class="flex-1 flex  items-center justify-center">
@@ -109,9 +146,8 @@
                     <%if(t.results.length>0){%>
                    <iframe class="w-full h-full rounded-xl mt-1" src="https://www.youtube.com/embed/<%= t.results[0].key %>"></iframe>
                    <%}else{%>
-                    <img class="w-full h-full rounded-xl mt-1" src="/gifs/trailer_not_available.gif">
-                    <%}%>
-
+                    <img class="w-full h-full rounded-xl mt-1" src="/public/gifs/trailer_not_available.gif">
+                     <%}%>
              </div>
                 </div>
                 
@@ -127,8 +163,11 @@
             
             </div>
 
+            
+
            
          </div>
+        
 
 
 
@@ -145,3 +184,59 @@
         
         
         </div>
+        <div class="w-1/4 mt-5 bg-surface border border-border"><h1 class="text-text font-bold text-5xl text-center tracking-tight italic ">Movies similar to this </h1></div>
+        
+         
+            <div class="flex flex-wrap justify-center">
+                  <%x.slice(0,5).forEach(function(v){%>
+                 <div class="flex gap-2 w-full max-w-xs justify-center mt-6 px-5">
+   <a href="/mdetails/<%=v.id%>">
+     <div class=" h-full flex flex-col bg-surface border border-border rounded-xl p-3 hover:scale-105 transition-all duration-320 outline outline-2 outline-transparent hover:outline-purple-600">
+
+        <div class="w-full aspect-square overflow-hidden rounded-lg border border-border">
+            <img
+                src="https://image.tmdb.org/t/p/w500<%= v.poster_path %>"
+                class="w-full h-full object-cover object-center"
+            >
+        </div>
+
+        <h3 class="mt-4 text-xl font-semibold text-white italic">
+           <%= v.title %>
+        </h3>
+
+        <p class="text-sm text-zinc-500 break-normal tracking-tighter line-clamp-3">
+           <%=v.overview%>
+            
+        </p>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <%if (v.vote_average == 0){%>
+                     <h1 class="flex text-center rounded-lg text-green-600 py-2  transition">Not Rated yet</h1>
+                     <%}else{%>
+                         <h1 class="flex text-center rounded-lg text-green-600 py-2  transition">⭐<%=v.vote_average.toFixed(1)%></h1>
+                         <%}%>
+            <%if (todaysdate< new Date(v.release_date)){%>
+                     <h2 class="flex-1 text-center rounded-lg text-white-600 py-2 transition ">Release status:<span class=" font-bold">Coming soon..</span> </h2>
+                     <%}else{%>
+                         <h1 class="flex-1 text-center rounded-lg text-white-600 py-2 transition" >Released on:<span class="  font-bold "><%=v.release_date%></span></h1>
+                         <%}%>
+           
+
+        </div>
+
+    </div>
+    </a>
+</div>
+<%});%>
+                
+                </div>
+                 <script>
+                let asis = document.getElementById("asis");
+                let asisbox = document.getElementById("asisbox");
+                asis.onclick=function(){
+                    asisbox.classList.toggle("hidden");
+                }
+                </script>
+                </body>
+
+
