@@ -70,13 +70,16 @@
                     <%}else{%>
                         <p class="font-bold text-text text-sm tracking-tight"> speak your mind lil bro</p>
                         <%}%>
-                        
-                        
                         </div>
-                    <form class="flex " method="post" action="/ai">
+                       <div class="flex gap-1">
+                       <form class="flex flex-1" method="post" action="/ai">
                             <input name ="aiwaladata" class="px-4 py-2 w-full outline outline-transparent hover:outline-purple-600 border border-border rounded-lg" placeholder="ask me about movies or things similar to them">
                           <input type="submit" value="Send" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-blue-800 transition-all">
                     </form>
+                     <form class="flex " method="post" action="/clear">
+                          <input type="submit" value="Clear" class="p-1 rounded-lg border border-border bg-red-600 hover:bg-red-800 transition-all">
+                    </form>
+                   </div>
                     
                     </div>
       <h1 class="font-extrabold italic text-text text-5xl text-center "><%=d.title%></h1>
