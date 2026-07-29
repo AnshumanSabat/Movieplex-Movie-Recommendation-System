@@ -49,7 +49,7 @@ return res.redirect(req.get("Referer"))
 
     
 });
-  
+  console
 app.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -76,7 +76,6 @@ function(req,res){
 
     res.cookie("token",token);
     res.cookie("username",req.user.username);
-    console.log("REQ.USER:", req.user);
 
     res.redirect("/");
 });
@@ -88,6 +87,12 @@ app.get(
     scope: [ "user:email"],
   })
 );
+
+app.post("/clear",function(req,res){
+  delete req.session.product;
+  res.redirect(req.get("Referer"));
+
+});
 
 app.get("/auth/github/callback",
 passport.authenticate("github", {
@@ -149,6 +154,8 @@ app.get("/search",async function(req,res){
     res.render("search",{user,m :data.results,todaysdate,useableq,gens2,page,n : data.total_pages,product});
 });
 
+
+
 app.get("/gsearch/:id",async function(req,res){
      const todaysdate = new Date();
      let product = req.session.product;
@@ -172,13 +179,14 @@ app.get("/mdetails/:id",isloggedin,async function(req,res){
     const todaysdate = new Date();
     let username = req.cookies.username;
     let product = req.session.product;
+    let idih = req.params.id;
      let {data:k}= await tmdb.get(`/movie/${req.params.id}/recommendations`);
      let { data} = await tmdb.get(`/movie/${req.params.id}`);
      let { data:c} = await tmdb.get(`/movie/${req.params.id}/credits`);
      let {data:t} = await tmdb.get(`/movie/${req.params.id}/videos`)
-    if(!username){return res.render("mdetails", { user: null,d: data,t,todaysdate,e:c.cast,f:c.crew ,x:k.results,product});} // data idhr undefined hota h so saade yaad rakhliyo isiliye idhr data ayega bs results nhi
+    if(!username){return res.render("mdetails", { user: null,d: data,t,todaysdate,e:c.cast,f:c.crew ,x:k.results,product,idih});} // data idhr undefined hota h so saade yaad rakhliyo isiliye idhr data ayega bs results nhi
  let user = await usermodel.findOne({username});
-   res.render("mdetails",{user, d: data,t,todaysdate,e:c.cast,f:c.crew,x:k.results,product});
+   res.render("mdetails",{user, d: data,t,todaysdate,e:c.cast,f:c.crew,x:k.results,product,idih});
 });
 
 
@@ -186,6 +194,37 @@ app.get("/login",function(req,res){
     res.render("login", { error: null });
    
 });
+
+
+app.post("/watchlist/:id", async function(req,res){
+ username= req.cookies.username;
+ watchid = req.params.id;
+ let user = await usermodel.findOne({username});
+ if (user.watchlist.includes(watchid)){
+    user.watchlist.pull(watchid);
+ }
+ else{
+    user.watchlist.push(watchid);
+ }
+ 
+ await user.save();
+ res.redirect(`/mdetails/${req.params.id}`);
+ 
+});
+
+app.get("/watchlist",async function(req,res){
+   let username= req.cookies.username;
+      const todaysdate = new Date();
+     let product = req.session.product;
+ let user = await usermodel.findOne({username});
+ let movd = [];
+ 
+    for (let id of user.watchlist) {
+        let { data } = await tmdb.get(`/movie/${id}`);
+        movd.push(data);
+    }
+ res.render("watchlist",{user,product,todaysdate,movd})
+})
 
 
 
@@ -219,9 +258,10 @@ res.redirect("/");
 
 app.get("/profile", async function(req,res){
     let username = req.cookies.username;
-    if(!username){return res.render("profile", { user: null,});}
+    let product = req.session.product;
+    if(!username){return res.render("profile", { user: null,product});}
  let user = await usermodel.findOne({username});
-    res.render("profile",{user});
+    res.render("profile",{user,product});
 });
 
 
@@ -263,6 +303,13 @@ else {
      })
 
 });
+
+
+app.post("/clear",function(req,res){
+  delete req.session.product;
+  res.redirect(req.get("Referer"));
+
+})
 
 
 

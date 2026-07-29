@@ -23,6 +23,21 @@
     --color-show: #58A6FF;
     --color-show-hover: #79C0FF;
 }
+.light {
+    --color-page: #F7F8FA;
+    --color-surface: #FFFFFF;
+    --color-hover: #EDEFF2;
+    --color-border: #D8DCE2;
+    --color-text: #0D1117;
+    --color-muted: #57606A;
+    --color-subtle: #6E7681;
+    --color-done: #1A7F37;
+    --color-danger: #CF222E;
+    --color-pin: #9A6700;
+    --color-pin-hover: #7A5200;
+    --color-show: #0969DA;
+    --color-show-hover: #0550AE;
+}
     </style>
 </head>
 <body class="min-h-screen bg-page text-text ">
@@ -30,20 +45,67 @@
     
     <nav class="flex justify-between items-center px-8 py-2 bg-surface border-b border-border w-full ">
         <div class="flex items-center gap-3">
-          <img class=" rounded-lg w-15 h-15 object-cover object-centers" src="/gifs/screen_hive_loader.gif">
+          <a href="/"><img class=" rounded-lg w-15 h-15 object-cover object-centers" src="/gifs/screen_hive_loader.gif"></a>
             <h1 class="text-lg font-semibold tracking-tight text-text">Movieplex</h1>
         </div>
         <div class="flex gap-1">
             <%if(user){%>
-                <a href="/logout" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-danger hover:text-text transition-colors duration-150">Logout</a>
-                <a href="/profile" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150"><%=user.username%></a>
-                <%}else{%>
-                    <a href="/login" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">login</a>
+              <div class="">
+                    <%if(user.image){%>
+                    <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+                    <%}else{%>
+                    <img src="/images/default-avatar.png" class=" outline outline-green-600 h-10 w-10 rounded-full object-cover">
                     <%}%>
-            
-            <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-hover hover:text-text transition-colors duration-150">Home</a>
+
+                    <div id ="prof" class=" overflow-hidden hidden fixed right-1 top-20 z-50 flex flex-col  bg-surface w-full/4 outline outline-2 outline-purple-600 border border-border rounded-xl">
+                        <a href="/profile" class="block px-4 py-2 font-bold hover:bg-purple-600">🎓Profile</a>
+                        <a href="/" class="block px-4 py-2 font-bold hover:bg-purple-600">🏠Home</a>
+                        <a href="/watchlist" class="block px-4 py-2 font-bold hover:bg-purple-600">✨Watchlist</a>
+                         <button id="themeToggle" class="flex items-center justify-between px-4 py-2 font-bold hover:bg-purple-600 transition">🌗Theme</button>
+                        <a href="/settings" class="block px-4 py-2 font-bold hover:bg-purple-600">⚙️Settings</a>
+                        <a href="/help" class="block px-4 py-2 font-bold hover:bg-purple-600">❓Help</a>
+                         <a href="/logout" class="   px-4 py-2 font-bold  hover:bg-danger ">🚪Logout</a>
+                        <%}else{%>
+                         <a href="/login" class="  px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">login</a>
+                        <%}%>
+                        </div>
+                    </div>
+                     <button id="profbtn" class="  border rounded-lg border-border flex flex-col gap-1.5 p-2 hover:scale-105 transition-all">
+                       <span class="w-6 h-0.5 bg-purple-600"></span>
+                       <span class="w-6 h-0.5 bg-purple-600"></span>
+                       <span class="w-6 h-0.5 bg-purple-600"></span>
+                    </button>
         </div>
     </nav>
+      <button id ="asis" class=" fixed bottom-6 right-6 z-40 rounded-full  hover:scale-150 transition-all duration-300"><img src="/gifs/ai_assistant_clapper_purple.gif" class="  object-center rounded-full h-20 w-20" ></button>
+                    <%if(product){%>
+                    <div id ="asisbox" class=" flex  flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl">
+                        <%}else{%>
+                            <div id ="asisbox" class=" flex     flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl hidden">
+                        <%}%>
+                    <h1 class="text-text font-bold text-2xl text-center tracking-tight italic ">AI assistant</h1>
+                    <div class=" flex-1  overflow-y-auto text-center">
+                        <%if(user){%>
+                    <h1 class="font-bold text-center">welcome,<%=user.username || user.name%>👋</h1>
+                    <%}%>
+                    <%if(product){%>
+                    <p class="font-bold text-text text-1xl tracking-tight "><%-product%></p>
+                    <%}else{%>
+                        <p class="font-bold text-text text-sm tracking-tight"> speak your mind lil bro</p>
+                        <%}%>
+                        
+                        
+                        </div>
+                     <div class="flex ">
+                       <form class="flex flex-1" method="post" action="/ai">
+                            <input name ="aiwaladata" class="px-4 py-2 w-full outline outline-transparent hover:outline-purple-600 border border-border rounded-lg" placeholder="ask me about movies or things similar to them">
+                          <input type="submit" value="Send" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-blue-800 transition-all">
+                    </form>
+                     <form class="flex " method="post" action="/clear">
+                          <input type="submit" value="Clear" class="p-1 rounded-lg border border-border bg-red-600 hover:bg-red-800 transition-all">
+                    </form>
+                   </div>
+                            </div>
     <h1 class="font-extrabold text-text text-center text-5xl">User Details</h1>
     <div class="flex justify-center items-center w-full mt-5 ">
         
@@ -63,5 +125,51 @@
             </div>
 
         </div>
+        
+<div id="toastContainer" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2"></div>
+           <script>
+  let asis = document.getElementById("asis");
+                let asisbox = document.getElementById("asisbox");
+                let prof = document.getElementById("prof");
+                let probtn = document.getElementById("profbtn");
+                const themeToggle = document.getElementById('themeToggle');
+          asis.onclick = function(e){
+  e.stopPropagation();
+  asisbox.classList.toggle("hidden");
+}
+
+probtn.onclick = function(e){
+  e.stopPropagation();
+  prof.classList.toggle("hidden");
+}
+
+document.addEventListener('click', (e) => {
+  if (!asisbox.contains(e.target)) {
+    asisbox.classList.add('hidden');
+  }
+  if (!prof.contains(e.target)) {
+    prof.classList.add('hidden');
+  }
+});
+
+
+if (localStorage.getItem('theme') === 'light') {
+  document.documentElement.classList.add('light');
+}
+
+themeToggle.onclick = function() {
+  document.documentElement.classList.toggle('light');
+  localStorage.setItem('theme', document.documentElement.classList.contains('light') ? 'light' : 'dark');
+  showToast('Theme changed!');
+};
+function showToast(message) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.textContent = message;
+  toast.className = "bg-surface border border-border text-text px-4 py-2 rounded-lg";
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+}
+                </script>
 </body>
 </html>

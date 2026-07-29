@@ -15,6 +15,7 @@ mongoose.connect(process.env.MONGO_URI);
     default: "local",
   },
   prevchat: [String],
+  watchlist: [Number],
  })
 
 

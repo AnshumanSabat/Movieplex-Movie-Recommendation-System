@@ -43,9 +43,9 @@
 <body class="min-h-screen bg-page text-text ">
 
     
-    <nav class=" fixed top-0 right-0 left-0 z-70 flex justify-between items-center px-8 py-2 bg-surface border-b border-border w-full ">
+    <nav class=" sticky top-0 right-0 left-0 z-70 flex justify-between items-center px-8 py-2 bg-surface border-b border-border w-full ">
         <div class="flex items-center gap-3">
-           <a href="/"><img class=" rounded-lg w-15 h-15 object-cover object-centers" src="/gifs/screen_hive_loader.gif"></a>
+          <a href="/"><img class=" rounded-lg w-15 h-15 object-cover object-centers" src="/gifs/screen_hive_loader.gif"></a>
             <h1 class="text-lg font-semibold tracking-tight text-text">Movieplex</h1>
         </div>
        <div class="flex-1 flex justify-center px-8">
@@ -55,9 +55,8 @@
         <input type="submit" class="p-1 rounded-lg border border-border bg-purple-600 hover:bg-purple-800 transition-all value="submit"></form>
 </div>
         <div class="flex gap-4">
-         
             <%if(user){%>
-                 <div class="">
+                <div class="">
                     <%if(user.image){%>
                     <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
                     <%}else{%>
@@ -65,7 +64,7 @@
                     <%}%>
 
                     <div id ="prof" class=" overflow-hidden hidden fixed right-1 top-20 z-50 flex flex-col  bg-surface w-full/4 outline outline-2 outline-purple-600 border border-border rounded-xl">
-                        <a href="/profile" class="block px-4 py-2 font-bold hover:bg-purple-600">🎓Profile</a>
+                          <a href="/profile" class="block px-4 py-2 font-bold hover:bg-purple-600">🎓Profile</a>
                         <a href="/" class="block px-4 py-2 font-bold hover:bg-purple-600">🏠Home</a>
                         <a href="/watchlist" class="block px-4 py-2 font-bold hover:bg-purple-600">✨Watchlist</a>
                          <button id="themeToggle" class="flex items-center justify-between px-4 py-2 font-bold hover:bg-purple-600 transition">🌗Theme</button>
@@ -103,35 +102,32 @@
                         
                         
                         </div>
-                     <div class="flex ">
-                       <form class="flex flex-1" method="post" action="/ai">
+                    <form class="flex " method="post" action="/ai">
                             <input name ="aiwaladata" class="px-4 py-2 w-full outline outline-transparent hover:outline-purple-600 border border-border rounded-lg" placeholder="ask me about movies or things similar to them">
                           <input type="submit" value="Send" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-blue-800 transition-all">
                     </form>
-                     <form class="flex " method="post" action="/clear">
-                          <input type="submit" value="Clear" class="p-1 rounded-lg border border-border bg-red-600 hover:bg-red-800 transition-all">
-                    </form>
-                   </div>
                     
                     </div>
-      <div class="sticky right-0 top-29 z-30 flex gap-2 mt-1 justify-center">
-      <% gens2.forEach(function(v){%>
-                <a href="/gsearch/<%=v.id%>"><div class="p-3 bg-surface/50 border border-border rounded-full hover:scale-105 transition-all hover:border-purple-600"><h1 class="font-bold text-md italic "><%=v.name%></h1></div></a>
-              <%});%>
-    </div>
+<%if(movd.length==0){%>
+    <h1 class="text-text font-bold text-3xl md:text-4xl text-center tracking-tight italic mb-6 pb-3 border-b-2 border-purple-600/50">Watchlist</h1>
+    <h1 class="text-zinc-500 text-2xl text-center">Your watchlist is empty...😿</h1>
+    <%}else{%>
+    <h1 class="text-text font-bold text-3xl md:text-4xl text-center tracking-tight italic  mb-6 pb-3 border-b-2 border-purple-600/50">Watchlist</h1>
+<div class="flex flex-wrap justify-center gap-6 mt-5">
+         
+                      <%movd.forEach(function(movie){ %>
 
 
+                        
 
-    <div class="sticky left-0 right-0 top-20 z-30 mt-5 bg-surface/50 w-full border-t border-b  border-border "><h1 class="text-text font-bold text-2xl text-center tracking-tight italic rounded-lg">Based on your Search-"<%= useableq%>"  </h1></div>
-     
-<div class=" flex flex-wrap justify-center gap-6 mt-5">
-    <%m.forEach(function(movie){ %>
- <div class="flex gap-3 w-full max-w-sm md:max-w-md justify-center mt-6 px-5">
-   <a href="/mdetails/<%=movie.id%>">
+ <div class=" flex  w-full max-w-sm md:max-w-md justify-center mt-6 px-5">
+
+       
+   <a href="/mdetails/<%=movie.id%>" class="">
      <div class=" h-full flex flex-col bg-surface border border-border rounded-xl p-5 hover:scale-105 transition-all duration-320 outline outline-2 outline-transparent hover:outline-purple-600">
 
         <div class="w-full aspect-square overflow-hidden rounded-lg border border-border">
-             <%if(movie.poster_path){%>
+            <%if(movie.poster_path){%>
             <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>" class="w-full h-full object-cover object-center" >
             <%}else{%>
                 <img src="/images/pngtree-no-image-available-icon-flatvector-illustration-pic-design-profile-vector-png-image_40966566.jpg" class="w-full h-full object-cover object-center">
@@ -153,36 +149,38 @@
                      <%}else{%>
                          <h1 class="flex text-center rounded-lg text-green-600 py-2  transition">⭐<%=movie.vote_average.toFixed(1)%></h1>
                          <%}%>
+
            <%if (todaysdate< new Date(movie.release_date)){%>
                      <h2 class="flex-1 text-center rounded-lg text-white-600 py-2 transition ">Release status:<span class=" font-bold">Coming soon..</span> </h2>
                      <%}else{%>
                          <h1 class="flex-1 text-center rounded-lg text-white-600 py-2 transition" >Released on:<span class="  font-bold "><%=movie.release_date%></span></h1>
                          <%}%>
+
+                         
+ 
+
+  
+
+                          
+                                 </div>
+                                 
         
         </div>
 
     </div>
     </a>
-</div>
-
-
     
-<% });%>
-     
-</div>
- <div class="flex justify-center items-center gap-3 mt-2">
-    <%if(page>1){%>
-     <a href="/search?q=<%=useableq%>&page=<%= page - 1 %>" class="px-5 py-2 rounded-full border border-border hover:scale-105 transition-all duration-300 hover:border-purple-600 hover:bg-purple-600/20 text-sm">Prev</a>
-     <%}%>
-     <%if(page<n){%>
-      <a href="/search?q=<%=useableq%>&page=<%= page + 1 %>" class="px-5 py-2 rounded-full border border-border hover:scale-105 transition-all duration-300 hover:border-purple-600 hover:bg-purple-600/20 text-sm">Next</a>
-      <%}%>
-      </div>
-      <h1 class="text-xl font-semibold text-white text-center p-2 italic">Currently on page-<%=page%></h1>
+  
+                             
+<%});%>
+</div> 
+
+
+<%}%>
 
 <div id="toastContainer" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2"></div>
-           <script>
-        let asis = document.getElementById("asis");
+ <script>
+  let asis = document.getElementById("asis");
                 let asisbox = document.getElementById("asisbox");
                 let prof = document.getElementById("prof");
                 let probtn = document.getElementById("profbtn");
@@ -225,7 +223,4 @@ function showToast(message) {
   setTimeout(() => toast.remove(), 2000);
 }
                 </script>
-      </body>
-
-
-   
+</body>
