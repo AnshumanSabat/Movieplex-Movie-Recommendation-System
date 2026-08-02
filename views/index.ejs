@@ -61,43 +61,107 @@
   <input id="my-drawer-4" type="checkbox" class="peer hidden" />
 
   
-  <nav class="sticky left-0 right-0 top-0 z-70 flex items-center gap-4 px-4 py-2 bg-surface border-b border-border w-full">
-    <label for="my-drawer-4" aria-label="open sidebar" class="cursor-pointer border rounded-lg border-border p-2 hover:bg-hover transition-all">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-5 text-purple-600">
-        <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-        <path d="M9 4v16"></path>
-        <path d="M14 10l2 2l-2 2"></path>
-      </svg>
-    </label>
+<nav class="sticky top-0 z-50 bg-surface border-b border-border">
 
-    <a href="/" class="flex items-center gap-3">
-      <img class="rounded-lg w-12 h-12 object-cover object-center" src="/gifs/screen_hive_loader.gif">
-      <h1 class="text-lg font-semibold tracking-tight text-text">Movieplex</h1>
-    </a>
+  <div class="flex items-center justify-between gap-3 px-4 py-2">
 
-    <div class="flex-1 flex justify-center px-8">
-  <form action="/search" method="GET" class="w-full max-w-md relative">
-    <input type="text" placeholder="Search movies, shows..." name="q"   
-      class="w-full px-4 py-2 pr-10 rounded-full bg-page border border-border text-text text-sm placeholder-subtle focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-colors">
-    <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-purple-600/20 transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4 text-purple-600">
-        <circle cx="10" cy="10" r="7"></circle>
-        <path d="M21 21l-6 -6"></path>
-      </svg>
-    </button>
-  </form>
-</div>
+    <div class="flex items-center gap-3 shrink-0">
+      <label
+        for="my-drawer-4"
+        class="cursor-pointer border rounded-lg border-border p-2 hover:bg-hover transition-all"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          stroke-width="2"
+          fill="none"
+          stroke="currentColor"
+          class="size-5 text-purple-600">
+          <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+          <path d="M9 4v16"></path>
+          <path d="M14 10l2 2l-2 2"></path>
+        </svg>
+      </label>
 
-    <% if(user){ %>
-      <% if(user.image){ %>
-        <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+      <a href="/" class="flex items-center gap-2 shrink-0">
+        <img
+          src="/gifs/screen_hive_loader.gif"
+          class="w-11 h-11 rounded-lg object-cover"
+        >
+        <h1 class="hidden md:block text-lg font-semibold">
+          Movieplex
+        </h1>
+      </a>
+    </div>
+
+    <div class="hidden md:flex flex-1 px-8">
+      <form action="/search" method="GET" class="relative w-full max-w-md mx-auto">
+        <input
+          type="search"
+          name="q"
+          placeholder="Search movies, shows..."
+          class="w-full rounded-full border border-border bg-page px-4 py-2 pr-10 text-text placeholder-subtle focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600"
+        >
+
+        <button
+          type="submit"
+          class="absolute right-1 top-1/2 -translate-y-1/2 p-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4 text-purple-600">
+            <circle cx="10" cy="10" r="7"></circle>
+            <path d="M21 21l-6 -6"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="shrink-0">
+      <% if(user){ %>
+        <% if(user.image){ %>
+          <img
+            src="<%=user.image%>"
+            class="h-10 w-10 rounded-full outline outline-green-600 object-cover"
+          >
+        <% } else { %>
+          <img
+            src="/images/default-avatar.png"
+            class="h-10 w-10 rounded-full outline outline-green-600 object-cover"
+          >
+        <% } %>
       <% } else { %>
-        <img src="/images/default-avatar.png" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+        <a
+          href="/login"
+          class="px-3 py-2 rounded-lg hover:bg-purple-600"
+        >
+          Login
+        </a>
       <% } %>
-    <% } else { %>
-      <a href="/login" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150">login</a>
-    <% } %>
-  </nav>
+    </div>
+
+  </div>
+
+  <div class="px-4 pb-3 md:hidden">
+    <form action="/search" method="GET" class="relative">
+      <input
+        type="search"
+        name="q"
+        placeholder="Search movies, shows..."
+        class="w-full rounded-full border border-border bg-page px-4 py-2 pr-10 text-text placeholder-subtle focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600"
+      >
+
+      <button
+        type="submit"
+        class="absolute right-1 top-1/2 -translate-y-1/2 p-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4 text-purple-600">
+          <circle cx="10" cy="10" r="7"></circle>
+          <path d="M21 21l-6 -6"></path>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+</nav>
 
 
    <label for="my-drawer-4" class="fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity duration-300 z-40"></label>
