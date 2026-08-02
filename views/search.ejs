@@ -237,11 +237,23 @@
 </div>
 
 </div>
-      <div class="sticky left-0 right-0 z-30 top-20 flex gap-2 mt-1 justify-center">
-      <% gens2.forEach(function(v){%>
-                <a href="/gsearch/<%=v.id%>"><div class=" badge badge-soft badge-primary p-3 bg-surface/50 border border-border rounded-full hover:scale-105 transition-all hover:border-purple-600"><h1 class="font-bold text-md italic "><%=v.name%></h1></div></a>
-              <%});%>
-    </div>
+      <div class="sticky top-20 z-30 px-3 mt-2">
+  <div class="flex flex-wrap justify-center gap-2">
+    <% gens2.forEach(function(v){ %>
+      <a href="/gsearch/<%= v.id %>">
+        <div class="badge badge-soft badge-primary
+                    bg-surface/50 border border-border
+                    rounded-full
+                    px-3 py-2
+                    text-xs sm:text-sm md:text-base
+                    hover:scale-105 hover:border-purple-600
+                    transition-all whitespace-nowrap">
+          <h1 class="font-bold italic"><%= v.name %></h1>
+        </div>
+      </a>
+    <% }); %>
+  </div>
+</div>
 
 
 
