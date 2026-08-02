@@ -301,7 +301,7 @@
   <div class="border border-border rounded-xl bg-surface">
     <h2 class="text-text font-bold text-xl tracking-tight italic px-5 py-4 border-b border-border">Security</h2>
     
-  <%if(user.googleId){%>
+  <%if(user.provider === "google"){%>
   <div class="border border-border rounded-xl bg-surface">
 
     
@@ -313,7 +313,7 @@
    
   </div>
 
-  <%}else if(user.githubId){%>
+  <%}else if(user.provider === "github"){%>
   <div class="border border-border rounded-xl bg-surface">
     
     
