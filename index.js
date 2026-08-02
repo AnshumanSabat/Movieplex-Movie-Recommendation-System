@@ -123,7 +123,7 @@ app.get("/", async function(req,res){
    let product = req.session.product;
 
    
-   const i = parseInt(req.query.i) || 4;
+
    const j = parseInt(req.query.j) || 4;
     const k = parseInt(req.query.k) || 4;
     const todaysdate = new Date();
@@ -132,10 +132,10 @@ app.get("/", async function(req,res){
     let { data:data3 } = await tmdb.get('/movie/popular');
    
  
- if(!username){return res.render("index", { user: null,m: data1.results,n: data2.results,l: data3.results,i,j,k,todaysdate,gens2,product,});}
+ if(!username){return res.render("index", { user: null,m: data1.results,n: data2.results,l: data3.results,j,k,todaysdate,gens2,product,});}
  let user = await usermodel.findOne({username});
  
-    return res.render("index",{user,m: data1.results, n: data2.results,l: data3.results,i,j,k,todaysdate,gens2,product,});
+    return res.render("index",{user,m: data1.results, n: data2.results,l: data3.results,j,k,todaysdate,gens2,product,});
  
 });
 
@@ -153,6 +153,53 @@ app.get("/search",async function(req,res){
      let user = await usermodel.findOne({username});
     res.render("search",{user,m :data.results,todaysdate,useableq,gens2,page,n : data.total_pages,product});
 });
+
+app.get("/cpassword",function(req,res){
+   res.render("cpassword",{error:null});
+});
+
+app.post("/cpassword", async function (req, res) {
+    let username = req.cookies.username;
+    let { cpassword, npassword, conpassword } = req.body;
+
+    let user = await usermodel.findOne({ username });
+    let comp = await bcrypt.compare(cpassword, user.password);
+
+    if (comp) {
+
+        if (npassword != conpassword) {
+            return res.render("cpassword", {
+                error: "New passwords do not match"
+            });
+        }
+
+        let same = await bcrypt.compare(npassword, user.password);
+
+        if (same) {
+            return res.render("cpassword", {
+                error: "New password cannot be the same as the old password"
+            });
+        }
+
+        bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(npassword, salt, async function (err, hash) {
+
+                user.password = hash;
+                await user.save();
+
+                res.redirect("/");
+            });
+        });
+
+    } else {
+        return res.render("cpassword", {
+            error: "Current password entered was incorrect"
+        });
+    }
+});
+
+
+
 
 
 
@@ -194,6 +241,14 @@ app.get("/login",function(req,res){
     res.render("login", { error: null });
    
 });
+
+app.get("/settings",isloggedin,async function(req,res){
+    let username = req.cookies.username;
+   let product = req.session.product;
+   let user = await usermodel.findOne({username});
+   
+    res.render("settings",{user,product});
+})
 
 
 app.post("/watchlist/:id", async function(req,res){
@@ -321,7 +376,7 @@ app.post("/register", async function(req,res){
     let user = await usermodel.findOne({email});
    if (user) {
     return res.render("register", {
-        error: "email already exists"
+        error: "email or username already exists"
     });};
     
     if(password.length<=8){

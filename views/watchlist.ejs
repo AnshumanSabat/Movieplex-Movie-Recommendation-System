@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoviePlex</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
+    
     <style type="text/tailwindcss">
 @theme {
     --color-page: #0D1117;
@@ -38,149 +42,216 @@
     --color-show: #0969DA;
     --color-show-hover: #0550AE;
 }
+</style>
+<style>
+.hide-scrollbar::-webkit-scrollbar{
+    display:none;
+}
+
+.hide-scrollbar{
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+}
     </style>
 </head>
 <body class="min-h-screen bg-page text-text ">
 
     
-    <nav class=" sticky top-0 right-0 left-0 z-70 flex justify-between items-center px-8 py-2 bg-surface border-b border-border w-full ">
-        <div class="flex items-center gap-3">
-          <a href="/"><img class=" rounded-lg w-15 h-15 object-cover object-centers" src="/gifs/screen_hive_loader.gif"></a>
-            <h1 class="text-lg font-semibold tracking-tight text-text">Movieplex</h1>
-        </div>
-       <div class="flex-1 flex justify-center px-8">
-    <form action="/search" method="GET" class="w-full max-w-md flex">
-        <input type="text" placeholder="Search movies, shows..." name="q" 
-        class="w-full max-w-md px-4 py-2 rounded-lg bg-page border border-border text-text text-sm placeholder-subtle focus:outline-none focus:border-purple-600 transition-colors">
-        <input type="submit" class="p-1 rounded-lg border border-border bg-purple-600 hover:bg-purple-800 transition-all value="submit"></form>
-</div>
-        <div class="flex gap-4">
-            <%if(user){%>
-                <div class="">
-                    <%if(user.image){%>
-                    <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
-                    <%}else{%>
-                    <img src="/images/default-avatar.png" class=" outline outline-green-600 h-10 w-10 rounded-full object-cover">
-                    <%}%>
+   <div class="relative min-h-screen bg-page text-text">
+  <input id="my-drawer-4" type="checkbox" class="peer hidden" />
 
-                    <div id ="prof" class=" overflow-hidden hidden fixed right-1 top-20 z-50 flex flex-col  bg-surface w-full/4 outline outline-2 outline-purple-600 border border-border rounded-xl">
-                          <a href="/profile" class="block px-4 py-2 font-bold hover:bg-purple-600">🎓Profile</a>
-                        <a href="/" class="block px-4 py-2 font-bold hover:bg-purple-600">🏠Home</a>
-                        <a href="/watchlist" class="block px-4 py-2 font-bold hover:bg-purple-600">✨Watchlist</a>
-                         <button id="themeToggle" class="flex items-center justify-between px-4 py-2 font-bold hover:bg-purple-600 transition">🌗Theme</button>
-                        <a href="/settings" class="block px-4 py-2 font-bold hover:bg-purple-600">⚙️Settings</a>
-                        <a href="/help" class="block px-4 py-2 font-bold hover:bg-purple-600">❓Help</a>
-                         <a href="/logout" class="   px-4 py-2 font-bold  hover:bg-danger ">🚪Logout</a>
-                        <%}else{%>
-                         <a href="/login" class="  px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-blue-600 hover:text-text transition-colors duration-150">login</a>
-                        <%}%>
-                        </div>
-                    </div>
-                     <button id="profbtn" class="  border rounded-lg border-border flex flex-col gap-1.5 p-2 hover:scale-105 transition-all">
-                       <span class="w-6 h-0.5 bg-purple-600"></span>
-                       <span class="w-6 h-0.5 bg-purple-600"></span>
-                       <span class="w-6 h-0.5 bg-purple-600"></span>
-                    </button>
-        </div>
-    </nav>
+  
+  <nav class="sticky left-0 right-0 top-0 z-70 flex items-center gap-4 px-4 py-2 bg-surface border-b border-border w-full">
+    <label for="my-drawer-4" aria-label="open sidebar" class="cursor-pointer border rounded-lg border-border p-2 hover:bg-hover transition-all">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-5 text-purple-600">
+        <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+        <path d="M9 4v16"></path>
+        <path d="M14 10l2 2l-2 2"></path>
+      </svg>
+    </label>
+
+    <a href="/" class="flex items-center gap-3">
+      <img class="rounded-lg w-12 h-12 object-cover object-center" src="/gifs/screen_hive_loader.gif">
+      <h1 class="text-lg font-semibold tracking-tight text-text">Movieplex</h1>
+    </a>
+
+    <div class="flex-1 flex justify-center px-8">
+  <form action="/search" method="GET" class="w-full max-w-md relative">
+    <input type="text" placeholder="Search movies, shows..." name="q"
+      class="w-full px-4 py-2 pr-10 rounded-full bg-page border border-border text-text text-sm placeholder-subtle focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-colors">
+    <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-purple-600/20 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4 text-purple-600">
+        <circle cx="10" cy="10" r="7"></circle>
+        <path d="M21 21l-6 -6"></path>
+      </svg>
+    </button>
+  </form>
+</div>
+
+    <% if(user){ %>
+      <h1 class="text-text font-bold text-md tracking-tighter hidden md:flex items-center">Welcome, <%=user.name || user.username%></h1>
+      <% if(user.image){ %>
+        <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+      <% } else { %>
+        <img src="/images/default-avatar.png" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+      <% } %>
+    <% } else { %>
+      <a href="/login" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150">login</a>
+    <% } %>
+  </nav>
+
+
+   <label for="my-drawer-4" class="fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity duration-300 z-40"></label>
+
+<div class="fixed left-0 top-0 z-50 h-full w-64 -translate-x-full peer-checked:translate-x-0 transition-transform duration-300 ease-in-out bg-surface border-r border-border flex flex-col shadow-2xl">
+  <ul class="menu w-full grow p-3 mt-20 gap-1">
+    <li>
+      <a href="/" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
+        <span class="text-lg">🏠</span> <span>Home</span>
+      </a>
+    </li>
+    <li>
+      <a href="/watchlist" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
+        <span class="text-lg">✨</span> <span>Watchlist</span>
+      </a>
+    </li>
+    <li>
+      <button id="themeToggle" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
+        <span class="text-lg">🌗</span> <span>Theme</span>
+      </button>
+    </li>
+    <li>
+      <a href="/settings" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
+        <span class="text-lg">⚙️</span> <span>Settings</span>
+      </a>
+    </li>
+    <li>
+      <a href="/help" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
+        <span class="text-lg">❓</span> <span>Help</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="p-3 border-t border-border">
+    <%if(user){%>
+      <% if(user.image){ %>
+        
+           <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+        <span class="text-text font-bold text-md tracking-tighter"><%=user.name || user.username%></span>
+        
+       
+      <% } else { %>
+        
+          <img src="/images/default-avatar.png" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+          <span class="text-text font-bold text-md tracking-tighter"><%=user.name || user.username%></span>
+          
+        
+      <% } %>
+
+      <a href="/logout" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-danger hover:bg-danger/15 transition-all duration-200">
+      <span class="text-lg">🚪</span> <span>Logout</span>
+    </a>
+      <%}else{%>
+        <a href="/login" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-blue-600 hover:bg-blue-400 transition-all duration-200">
+      <span class="text-lg">🚪</span> <span>Login</span>
+    </a>
+       <%}%>
+    
+  </div>
+</div>
      <button id ="asis" class=" fixed bottom-6 right-6 z-40 rounded-full  hover:scale-150 transition-all duration-300"><img src="/gifs/ai_assistant_clapper_purple.gif" class="  object-center rounded-full h-20 w-20" ></button>
-                    <%if(product){%>
-                    <div id ="asisbox" class=" flex  flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl">
-                        <%}else{%>
-                            <div id ="asisbox" class=" flex     flex-col fixed top-20 right-0 bottom-40 z-50  bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-xl hidden">
-                        <%}%>
-                    <h1 class="text-text font-bold text-2xl text-center tracking-tight italic ">AI assistant</h1>
-                    <div class=" flex-1  overflow-y-auto text-center">
-                        <%if(user){%>
-                    <h1 class="font-bold text-center">welcome,<%=user.username || user.name%>👋</h1>
-                    <%}%>
-                    <%if(product){%>
-                    <p class="font-bold text-text text-1xl tracking-tight "><%-product%></p>
-                    <%}else{%>
-                        <p class="font-bold text-text text-sm tracking-tight"> speak your mind lil bro</p>
-                        <%}%>
-                        
-                        
-                        </div>
-                    <form class="flex " method="post" action="/ai">
-                            <input name ="aiwaladata" class="px-4 py-2 w-full outline outline-transparent hover:outline-purple-600 border border-border rounded-lg" placeholder="ask me about movies or things similar to them">
-                          <input type="submit" value="Send" class="p-1 rounded-lg border border-border bg-blue-600 hover:bg-blue-800 transition-all">
-                    </form>
-                    
-                    </div>
+                 
+      <%if(product){%>
+<div id="asisbox" class="flex flex-col fixed top-20 right-4 bottom-40 z-50 bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-2xl shadow-2xl overflow-hidden">
+<%}else{%>
+<div id="asisbox" class="flex flex-col fixed top-20 right-4 bottom-40 z-50 bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-2xl shadow-2xl overflow-hidden hidden">
+<%}%>
+
+    <div class="px-4 py-3 border-b border-border">
+        <h1 class="text-text font-bold text-xl text-center tracking-tight italic">Moxie</h1>
+    </div>
+
+    <div class="flex-1 overflow-y-auto text-center px-4 py-3 space-y-2">
+      
+
+        <% if(product){ %>
+            <p class="font-bold text-text text-lg tracking-tight px-2"><%- product %></p>
+        <% } else { %>
+            <p class="font-medium text-text/70 text-sm tracking-tight ">speak your mind lil bro</p>
+        <% } %>
+    </div>
+       <div class="flex items-center gap-2 px-3 py-3 border-t border-border">
+    <form class="flex flex-1 gap-2" method="post" action="/ai">
+        <input name="aiwaladata" class="px-4 py-2 flex-1 min-w-0 bg-transparent outline outline-1 outline-border focus:outline-purple-600 border border-border rounded-lg text-sm placeholder:text-text/40" placeholder="Likho balak">
+        <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors">Send</button>
+    </form>
+    <form method="post" action="/clear">
+        <button type="submit" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-colors">Clear</button>
+    </form>
+</div>
+
+</div>
 <%if(movd.length==0){%>
     <h1 class="text-text font-bold text-3xl md:text-4xl text-center tracking-tight italic mb-6 pb-3 border-b-2 border-purple-600/50">Watchlist</h1>
     <h1 class="text-zinc-500 text-2xl text-center">Your watchlist is empty...😿</h1>
     <%}else{%>
     <h1 class="text-text font-bold text-3xl md:text-4xl text-center tracking-tight italic  mb-6 pb-3 border-b-2 border-purple-600/50">Watchlist</h1>
 <div class="flex flex-wrap justify-center gap-6 mt-5">
-         
-                      <%movd.forEach(function(movie){ %>
 
+  <% movd.forEach(function(movie){ %>
+  <a href="/mdetails/<%=movie.id%>" class="group relative block overflow-hidden rounded-xl border border-border bg-surface w-full max-w-sm">
 
-                        
+    <% if(movie.poster_path){ %>
+    <img
+      alt="<%= movie.title %>"
+      src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+      class="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-300 group-hover:opacity-40 group-hover:scale-105"
+    />
+    <% } else { %>
+    <img
+      alt="<%= movie.title %>"
+      src="/images/pngtree-no-image-available-icon-flatvector-illustration-pic-design-profile-vector-png-image_40966566.jpg"
+      class="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-300 group-hover:opacity-40 group-hover:scale-105"
+    />
+    <% } %>
 
- <div class=" flex  w-full max-w-sm md:max-w-md justify-center mt-6 px-5">
+    <div class=" relative p-4 sm:p-6 lg:p-8">
 
-       
-   <a href="/mdetails/<%=movie.id%>" class="">
-     <div class=" h-full flex flex-col bg-surface border border-border rounded-xl p-5 hover:scale-105 transition-all duration-320 outline outline-2 outline-transparent hover:outline-purple-600">
+      <p class="text-sm font-medium tracking-widest uppercase text-accent">
+        <% if(movie.vote_average == 0){ %>Not Rated yet<% } else { %>⭐ <%=movie.vote_average.toFixed(1)%><% } %>
+      </p>
 
-        <div class="w-full aspect-square overflow-hidden rounded-lg border border-border">
-            <%if(movie.poster_path){%>
-            <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>" class="w-full h-full object-cover object-center" >
-            <%}else{%>
-                <img src="/images/pngtree-no-image-available-icon-flatvector-illustration-pic-design-profile-vector-png-image_40966566.jpg" class="w-full h-full object-cover object-center">
-                <%}%>
+      <p class="text-xl font-bold text-text sm:text-2xl italic">
+        <%= movie.title %>
+      </p>
+
+      <div class="mt-32 sm:mt-30 lg:mt-54">
+        <div class="translate-y-8 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          <p class="text-sm text-muted line-clamp-3">
+            <%= movie.overview %>
+          </p>
+          <p class="text-sm text-muted mt-2">
+            <% if (todaysdate < new Date(movie.release_date)){ %>
+              Coming soon..
+            <% } else { %>
+              Released on: <span class="font-bold"><%=movie.release_date%></span>
+            <% } %>
+          </p>
         </div>
-
-        <h3 class="mt-4 text-xl font-semibold text-white italic">
-           <%= movie.title %>
-        </h3>
-
-        <p class="text-sm text-zinc-500 break-normal tracking-tighter line-clamp-3">
-           <%=movie.overview%>
-            
-        </p>
-
-        <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <%if (movie.vote_average == 0){%>
-                     <h1 class="flex text-center rounded-lg text-green-600 py-2  transition">Not Rated yet</h1>
-                     <%}else{%>
-                         <h1 class="flex text-center rounded-lg text-green-600 py-2  transition">⭐<%=movie.vote_average.toFixed(1)%></h1>
-                         <%}%>
-
-           <%if (todaysdate< new Date(movie.release_date)){%>
-                     <h2 class="flex-1 text-center rounded-lg text-white-600 py-2 transition ">Release status:<span class=" font-bold">Coming soon..</span> </h2>
-                     <%}else{%>
-                         <h1 class="flex-1 text-center rounded-lg text-white-600 py-2 transition" >Released on:<span class="  font-bold "><%=movie.release_date%></span></h1>
-                         <%}%>
-
-                         
- 
-
-  
-
-                          
-                                 </div>
-                                 
-        
-        </div>
+      </div>
 
     </div>
-    </a>
-    
-  
-                             
-<%});%>
-</div> 
+  </a>
+  <% }); %>
+
+</div>
 
 
 <%}%>
 
-<div id="toastContainer" class="fixed bottom-6 left-6 z-50 flex flex-col gap-2"></div>
+<div id="toastContainer" class="fixed bottom-6 right-30 z-50 flex flex-col gap-2"></div>
  <script>
-  let asis = document.getElementById("asis");
+     let asis = document.getElementById("asis");
                 let asisbox = document.getElementById("asisbox");
                 let prof = document.getElementById("prof");
                 let probtn = document.getElementById("profbtn");
@@ -190,16 +261,19 @@
   asisbox.classList.toggle("hidden");
 }
 
-probtn.onclick = function(e){
-  e.stopPropagation();
-  prof.classList.toggle("hidden");
+
+if (probtn) {
+  probtn.onclick = function(e){
+    e.stopPropagation();
+    prof.classList.toggle("hidden");
+  }
 }
 
 document.addEventListener('click', (e) => {
-  if (!asisbox.contains(e.target)) {
+  if (asisbox && !asisbox.contains(e.target)) {
     asisbox.classList.add('hidden');
   }
-  if (!prof.contains(e.target)) {
+  if (prof && !prof.contains(e.target)) {
     prof.classList.add('hidden');
   }
 });
