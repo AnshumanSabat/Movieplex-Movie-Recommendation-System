@@ -5,59 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoviePlex</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-@theme {
-    --color-page: #0D1117;
-    --color-surface: #161B22;
-    --color-hover: #21262D;
-    --color-border: #30363D;
-    --color-accent: #2F81F7;
-    --color-accent-hover: #1F6FEB;
-    --color-text: #E6EDF3;
-    --color-muted: #8B949E;
-    --color-subtle: #6E7681;
-    --color-done: #3FB950;
-    --color-danger: #F85149;
-    --color-pin: #E3B341;
-    --color-pin-hover: #D29922;
-    --color-show: #58A6FF;
-    --color-show-hover: #79C0FF;
-}
-.light {
-    --color-page: #F7F8FA;
-    --color-surface: #FFFFFF;
-    --color-hover: #EDEFF2;
-    --color-border: #D8DCE2;
-    --color-text: #0D1117;
-    --color-muted: #57606A;
-    --color-subtle: #6E7681;
-    --color-done: #1A7F37;
-    --color-danger: #CF222E;
-    --color-pin: #9A6700;
-    --color-pin-hover: #7A5200;
-    --color-show: #0969DA;
-    --color-show-hover: #0550AE;
-}
-.hide-scrollbar::-webkit-scrollbar{
-    display:none;
-}
-
-.hide-scrollbar{
-    -ms-overflow-style:none;
-    scrollbar-width:none;
-}
-    </style>
-</head>
-<body class="min-h-screen bg-page text-text ">
-
-    
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoviePlex</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" />
@@ -115,44 +62,107 @@
   <input id="my-drawer-4" type="checkbox" class="peer hidden" />
 
   
- <nav class="sticky left-0 right-0 top-0 z-70 flex items-center gap-4 px-4 py-2 bg-surface border-b border-border w-full">
-    <label for="my-drawer-4" aria-label="open sidebar" class="cursor-pointer border rounded-lg border-border p-2 hover:bg-hover transition-all">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-5 text-purple-600">
-        <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-        <path d="M9 4v16"></path>
-        <path d="M14 10l2 2l-2 2"></path>
-      </svg>
-    </label>
+<nav class="sticky top-0 z-50 bg-surface border-b border-border">
 
-    <a href="/" class="flex items-center gap-3">
-      <img class="rounded-lg w-12 h-12 object-cover object-center" src="/gifs/screen_hive_loader.gif">
-      <h1 class="text-lg font-semibold tracking-tight text-text">Movieplex</h1>
-    </a>
+  <div class="flex items-center justify-between gap-3 px-4 py-2">
 
-    <div class="flex-1 flex justify-center px-8">
-  <form action="/search" method="GET" class="w-full max-w-md relative">
-    <input type="text" placeholder="Search movies, shows..." name="q"
-      class="w-full px-4 py-2 pr-10 rounded-full bg-page border border-border text-text text-sm placeholder-subtle focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600 transition-colors">
-    <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 rounded-full hover:bg-purple-600/20 transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4 text-purple-600">
-        <circle cx="10" cy="10" r="7"></circle>
-        <path d="M21 21l-6 -6"></path>
-      </svg>
-    </button>
-  </form>
-</div>
+    <div class="flex items-center gap-3 shrink-0">
+      <label
+        for="my-drawer-4"
+        class="cursor-pointer border rounded-lg border-border p-2 hover:bg-hover transition-all"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          stroke-width="2"
+          fill="none"
+          stroke="currentColor"
+          class="size-5 text-purple-600">
+          <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+          <path d="M9 4v16"></path>
+          <path d="M14 10l2 2l-2 2"></path>
+        </svg>
+      </label>
 
-    <% if(user){ %>
-      <h1 class="text-text font-bold text-md tracking-tighter hidden md:flex items-center">Welcome, <%=user.name || user.username%></h1>
-      <% if(user.image){ %>
-        <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+      <a href="/" class="flex items-center gap-2 shrink-0">
+        <img
+          src="/gifs/screen_hive_loader.gif"
+          class="w-11 h-11 rounded-lg object-cover"
+        >
+        <h1 class=" md:block text-lg font-semibold">
+          Movieplex
+        </h1>
+      </a>
+    </div>
+
+    <div class="hidden md:flex flex-1 px-8">
+      <form action="/search" method="GET" class="relative w-full max-w-md mx-auto">
+        <input
+          type="search"
+          name="q"
+          placeholder="Search movies, shows..."
+          class="w-full rounded-full border border-border bg-page px-4 py-2 pr-10 text-text placeholder-subtle focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600"
+        >
+
+        <button
+          type="submit"
+          class="absolute right-1 top-1/2 -translate-y-1/2 p-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4 text-purple-600">
+            <circle cx="10" cy="10" r="7"></circle>
+            <path d="M21 21l-6 -6"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="shrink-0">
+      <% if(user){ %>
+        <% if(user.image){ %>
+          <img
+            src="<%=user.image%>"
+            class="h-10 w-10 rounded-full outline outline-green-600 object-cover"
+          >
+        <% } else { %>
+          <img
+            src="/images/default-avatar.png"
+            class="h-10 w-10 rounded-full outline outline-green-600 object-cover"
+          >
+        <% } %>
       <% } else { %>
-        <img src="/images/default-avatar.png" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
+        <a
+          href="/login"
+          class="px-3 py-2 rounded-lg hover:bg-purple-600"
+        >
+          Login
+        </a>
       <% } %>
-    <% } else { %>
-      <a href="/login" class="px-4 py-2 rounded-lg text-sm font-medium text-muted hover:bg-purple-600 hover:text-text transition-colors duration-150">login</a>
-    <% } %>
-  </nav>
+    </div>
+
+  </div>
+
+  <div class="px-4 pb-3 md:hidden">
+    <form action="/search" method="GET" class="relative">
+      <input
+        type="search"
+        name="q"
+        placeholder="Search movies, shows..."
+        class="w-full rounded-full border border-border bg-page px-4 py-2 pr-10 text-text placeholder-subtle focus:outline-none focus:border-purple-600 focus:ring-1 focus:ring-purple-600"
+      >
+
+      <button
+        type="submit"
+        class="absolute right-1 top-1/2 -translate-y-1/2 p-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="size-4 text-purple-600">
+          <circle cx="10" cy="10" r="7"></circle>
+          <path d="M21 21l-6 -6"></path>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+</nav>
 
 
   <label for="my-drawer-4" class="fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity duration-300 z-40"></label>
@@ -275,127 +285,173 @@
   </div>
 </div>
       <h1 class="font-extrabold italic text-text text-5xl text-center "><%=d.title%></h1>
-    <div class="flex justify-center px-3 mt-5" >
-        <%if(d.backdrop_path){%>
-        <div class=" w-full  bg-surface border border-border rounded-xl p-2  overflow-hidden"     style ="  background-image: url('https://image.tmdb.org/t/p/original<%= d.backdrop_path %>');background-position: center; background-size: cover;"  >
-        <%}else{%>
-            <div class=" w-full  bg-surface border border-border rounded-xl p-2  overflow-hidden"     style ="  background-image: url('https://img.magnific.com/free-photo/abstract-textured-backgound_1258-30495.jpg?semt=ais_hybrid&w=740&q=80');background-position: center; background-size: cover;"  > 
-         <%}%>               
-           <div class="flex flex-col md:flex-row">
-            <%if(d.poster_path){%>
-             <img class=" w-1/4  object-cover object-center rounded-xl border border-border " src="https://image.tmdb.org/t/p/original<%= d.poster_path %>">
-             <%}else{%>
-             <img class=" w-1/4  object-cover object-center rounded-xl border border-border " src="/images/pngtree-no-image-available-icon-flatvector-illustration-pic-design-profile-vector-png-image_40966566.jpg">
-             <%}%>
+    <div class="flex justify-center px-3 mt-5">
+  <% if(d.backdrop_path){ %>
+    <div class="w-full bg-surface border border-border rounded-xl p-3 overflow-hidden"
+      style="background-image:url('https://image.tmdb.org/t/p/original<%= d.backdrop_path %>');background-position:center;background-size:cover;">
+  <% } else { %>
+    <div class="w-full bg-surface border border-border rounded-xl p-3 overflow-hidden"
+      style="background-image:url('https://img.magnific.com/free-photo/abstract-textured-backgound_1258-30495.jpg?semt=ais_hybrid&w=740&q=80');background-position:center;background-size:cover;">
+  <% } %>
 
+    <div class="flex flex-col lg:flex-row gap-6">
 
-            <div class=" flex  flex-col p-10 border border-border rounded-xl bg-surface/60">
-                   <%if (todaysdate< new Date(d.release_date)){%>
-                    <h1 class=font-bold >Release Status:<span class=" text-2xl font-extrabold p-4">Coming soon..</span></h1>
-                     <%}else{%>
-                         <h1 class=font-bold >Released on:<span class=" text-2xl font-extrabold p-4"><%=d.release_date%></span></h1>
-                         <%}%>
-                 <%if (d.vote_average == 0){%>
-                     <h1 class=font-bold >Ratings:<span class=" text-2xl font-extrabold p-4">Not Rated yet</span></h1>
-                     <%}else{%>
-                         <h1 class=font-bold >Ratings:<span class=" text-2xl font-extrabold p-4">⭐<%=d.vote_average.toFixed(1)%>/10</span></h1>
-                         <%}%>
-                
-                 <h1 class=font-bold >Status:<span class=" text-2xl font-extrabold p-4"><%=d.status%></span></h1>
-                 <h1 class=font-bold >Runtime:<span class=" text-2xl font-extrabold p-4"><%=d.runtime%>mins</span></h1>
-                  <%if (d.budget <10){%>
-                     <h1 class=font-bold >Budget:<span class=" text-2xl font-extrabold p-4">Not Available</span></h1>
-                     <%}else{%>
-                         <h1 class=font-bold >Budget:<span class=" text-2xl font-extrabold p-4"><%=d.budget%></span>-USD</h1>
-                         <%}%>
-                         <%if (d.revenue <10){%>
-                     <h1 class=font-bold >Revenue:<span class=" text-2xl font-extrabold p-4">Not Available</span></h1>
-                     <%}else{%>
-                         <h1 class=font-bold >Revenue:<span class=" text-2xl font-extrabold p-4"><%=d.revenue%></span>-USD</h1>
-                         <%}%>
-                  <% if(user.watchlist.includes(idih)){ %>
-<form action="/watchlist/<%= idih %>" method="post">
-  <button
-    class="inline-flex items-center gap-2 rounded-xl border border-emerald-500 bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-emerald-700 hover:shadow-lg hover:scale-105 active:scale-95 cursor-pointer">
-    🥳 Added to Watchlist
-  </button>
-</form>
-<% } else { %>
-<form action="/watchlist/<%= idih %>" method="post">
-                         <button class="inline-flex items-center gap-2 rounded-xl border border-red-500 bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-red-600 hover:shadow-lg hover:scale-105 active:scale-95 cursor-pointer">
-                                ➕ Add to Watchlist
-                         </button>
-</form>
-<% } %>
+      <% if(d.poster_path){ %>
+        <img
+          class="w-48 sm:w-60 md:w-72 lg:w-1/4 mx-auto lg:mx-0 rounded-xl border border-border object-cover"
+          src="https://image.tmdb.org/t/p/original<%= d.poster_path %>">
+      <% } else { %>
+        <img
+          class="w-48 sm:w-60 md:w-72 lg:w-1/4 mx-auto lg:mx-0 rounded-xl border border-border object-cover"
+          src="/images/pngtree-no-image-available-icon-flatvector-illustration-pic-design-profile-vector-png-image_40966566.jpg">
+      <% } %>
 
+      <div class="flex-1 flex flex-col gap-3 p-4 md:p-8 rounded-xl border border-border bg-surface/70">
 
+        <% if(todaysdate < new Date(d.release_date)){ %>
+          <h1 class="font-bold text-sm md:text-base">
+            Release Status:
+            <span class="text-lg md:text-2xl font-extrabold px-2">Coming Soon</span>
+          </h1>
+        <% } else { %>
+          <h1 class="font-bold text-sm md:text-base">
+            Released:
+            <span class="text-lg md:text-2xl font-extrabold px-2"><%= d.release_date %></span>
+          </h1>
+        <% } %>
 
-                   <a href="https://www.imdb.com/title/<%= d.imdb_id %>" class="mt-2 px-4 py-2 rounded-lg bg-yellow-600 text-sm font-medium text-text hover:scale-105 transition-all outline outline-2 outline-transparent hover:outline-yellow-400 overflow-hidden ">view on imdb?</a>
-                     <div class="flex gap-3">
-                   <% d.genres.forEach(function(g){%>
-                      
-                      <a href="/gsearch/<%=g.id%>"><div class=" bg-surface/50 border border-border rounded-lg hover:scale-105 transition-all hover:border-purple-600"><h1 class="font-bold text-md italic "><%=g.name%></h1></div></a>
+        <% if(d.vote_average == 0){ %>
+          <h1 class="font-bold text-sm md:text-base">
+            Rating:
+            <span class="text-lg md:text-2xl font-extrabold px-2">Not Rated</span>
+          </h1>
+        <% } else { %>
+          <h1 class="font-bold text-sm md:text-base">
+            Rating:
+            <span class="text-lg md:text-2xl font-extrabold px-2">⭐ <%= d.vote_average.toFixed(1) %>/10</span>
+          </h1>
+        <% } %>
 
-                   
-                 
-                    <%});%>
-                     </div>
-                     <h1 class="font-extrabold text-center text-md underline">Leading Actors</h1>
-    <ul class="flex flex-col gap-1">
-  <% e.slice(0,5).forEach(function(c){ %>
+        <h1 class="font-bold text-sm md:text-base">
+          Status:
+          <span class="text-lg md:text-2xl font-extrabold px-2"><%= d.status %></span>
+        </h1>
 
-  <li class="flex items-center gap-2 rounded-lg border border-border bg-surface/50 p-3 hover:border-purple-600 hover:scale-[1.02] transition-all">
+        <h1 class="font-bold text-sm md:text-base">
+          Runtime:
+          <span class="text-lg md:text-2xl font-extrabold px-2"><%= d.runtime %> mins</span>
+        </h1>
 
-    <img
-      class="h-12 w-12 rounded-lg object-cover"
-      src="https://image.tmdb.org/t/p/w185<%= c.profile_path %>"
-      alt="<%= c.name %>"
-    >
+        <% if(d.budget < 10){ %>
+          <h1 class="font-bold text-sm md:text-base">
+            Budget:
+            <span class="text-lg md:text-2xl font-extrabold px-2">Not Available</span>
+          </h1>
+        <% } else { %>
+          <h1 class="font-bold text-sm md:text-base">
+            Budget:
+            <span class="text-lg md:text-2xl font-extrabold px-2">$<%= d.budget %></span>
+          </h1>
+        <% } %>
 
-    <div class="flex-1">
-      <h3 class="font-semibold text-text"><%= c.name %></h3>
-      <p class="text-sm text-muted"><%= c.character %></p>
+        <% if(d.revenue < 10){ %>
+          <h1 class="font-bold text-sm md:text-base">
+            Revenue:
+            <span class="text-lg md:text-2xl font-extrabold px-2">Not Available</span>
+          </h1>
+        <% } else { %>
+          <h1 class="font-bold text-sm md:text-base">
+            Revenue:
+            <span class="text-lg md:text-2xl font-extrabold px-2">$<%= d.revenue %></span>
+          </h1>
+        <% } %>
+
+        <% if(user.watchlist.includes(idih)){ %>
+          <form action="/watchlist/<%= idih %>" method="post">
+            <button class="w-full sm:w-fit inline-flex justify-center items-center gap-2 rounded-xl border border-emerald-500 bg-emerald-600 px-4 py-2 text-white font-semibold hover:bg-emerald-700 transition">
+              🥳 Added to Watchlist
+            </button>
+          </form>
+        <% } else { %>
+          <form action="/watchlist/<%= idih %>" method="post">
+            <button class="w-full sm:w-fit inline-flex justify-center items-center gap-2 rounded-xl border border-red-500 bg-red-500 px-4 py-2 text-white font-semibold hover:bg-red-600 transition">
+              ➕ Add to Watchlist
+            </button>
+          </form>
+        <% } %>
+
+        <a href="https://www.imdb.com/title/<%= d.imdb_id %>"
+          class="w-full sm:w-fit text-center mt-2 px-4 py-2 rounded-lg bg-yellow-600 hover:bg-yellow-700 transition">
+          View on IMDb
+        </a>
+
+        <div class="flex flex-wrap gap-2 mt-3">
+          <% d.genres.forEach(function(g){ %>
+            <a href="/gsearch/<%= g.id %>">
+              <div class="px-3 py-1 rounded-full bg-surface border border-border hover:border-purple-600 transition">
+                <span class="font-semibold text-sm"><%= g.name %></span>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+
+        <h1 class="text-center font-bold underline mt-4">Leading Actors</h1>
+
+        <ul class="flex flex-col gap-2">
+          <% e.slice(0,5).forEach(function(c){ %>
+            <li class="flex items-center gap-3 rounded-lg border border-border bg-surface/50 p-3">
+              <img class="h-12 w-12 rounded-lg object-cover"
+                src="https://image.tmdb.org/t/p/w185<%= c.profile_path %>">
+
+              <div>
+                <h3 class="font-semibold"><%= c.name %></h3>
+                <p class="text-sm text-muted"><%= c.character %></p>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+
+        <h1 class="text-center font-bold underline mt-4">Crew</h1>
+
+        <% f.slice(0,5).forEach(function(c){ %>
+          <div class="rounded-lg border border-border bg-surface/50 p-2">
+            <span class="font-bold text-danger"><%= c.name %></span>
+            -
+            <span class="font-semibold"><%= c.job %></span>
+          </div>
+        <% }) %>
+
+      </div>
+
+      <div class="w-full lg:flex-1 flex justify-center items-start">
+        <div class="w-full aspect-video lg:max-w-xl">
+          <div class="rounded-lg bg-surface/60 p-2 mb-2">
+            <h1 class="text-center italic font-bold"><%= d.tagline %></h1>
+          </div>
+
+          <% if(t.results.length > 0){ %>
+            <iframe
+              class="w-full h-full rounded-xl"
+              src="https://www.youtube.com/embed/<%= t.results[0].key %>">
+            </iframe>
+          <% } else { %>
+            <img
+              class="w-full rounded-xl"
+              src="/public/gifs/trailer_not_available.gif">
+          <% } %>
+        </div>
+      </div>
+
     </div>
 
+    <div class="mt-6 rounded-xl border border-border bg-surface/70 p-4">
+      <p class="text-sm md:text-lg text-center italic leading-7">
+        <%= d.overview %>
+      </p>
+    </div>
 
-  </li>
-
-  <% }); %>
-</ul>
-                        <h1 class="font-extrabold text-center text-md underline">Crew</h1>
-                        <% f.slice(0,5).forEach(function(c){%>
-                        <div class=" flex gap-1 block bg-surface/50 border border-border rounded-lg hover:scale-105 transition-all hover:border-purple-600"><h1 class="font-bold text-sm italic inline-block "><span class="text-md font-bold text-danger"><%=c.name%></span>-<span class="text-md font-bold text-danger"><%=c.job%></span></div>
-                        <%});%>
-                        
-                </div>
-                
-                   <div class="flex-1 flex  items-center justify-center">
-              <div class="w-full max-w-xl aspect-video  ">
-                    <div class="border-dashed border-border rounded-lg bg-surface/60"><h1 class="font-bold text-text italic text-center"><%=d.tagline%></h1></div>
-                    <%if(t.results.length>0){%>
-                   <iframe class="w-full h-full rounded-xl mt-1" src="https://www.youtube.com/embed/<%= t.results[0].key %>"></iframe>
-                   <%}else{%>
-                    <img class="w-full h-full rounded-xl mt-1" src="/public/gifs/trailer_not_available.gif">
-                     <%}%>
-             </div>
-                </div>
-                
-                
-                  
-            </div>
-           <div class=" block bg-surface/60 border border-border rounded-lg w-full mt-5 flex justify-center">
-            <p class="font-bold text-text text-center breaking-words text-xl italic">
-                <%=d.overview%>
-                </p>
-            
-            
-            
-            </div>
-
-            
-
-           
-         </div>
+  </div>
+</div>
         
 
 
