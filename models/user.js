@@ -9,6 +9,7 @@ mongoose.connect(process.env.MONGO_URI);
     password:String,
     image:String,
     googleId:String,
+    githubId: String,
       provider: {
     type: String,
     enum: ["local", "google","github"],

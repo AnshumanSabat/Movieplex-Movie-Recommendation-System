@@ -50,6 +50,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoviePlex</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
@@ -152,27 +153,27 @@
     
     <li>
       <a href="/" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
-        <span class="text-lg">🏠</span> <span>Home</span>
+        <i data-lucide="house" class="size-5"></i> <span>Home</span>
       </a>
     </li>
     <li>
       <a href="/watchlist" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
-        <span class="text-lg">✨</span> <span>Watchlist</span>
+        <i data-lucide="bookmark" class="size-5"></i> <span>Watchlist</span>
       </a>
     </li>
     <li>
       <button id="themeToggle" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
-        <span class="text-lg">🌗</span> <span>Theme</span>
+        <i data-lucide="sun-moon" class="size-5"></i> <span>Theme</span>
       </button>
     </li>
     <li>
       <a href="/settings" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
-        <span class="text-lg">⚙️</span> <span>Settings</span>
+        <i data-lucide="settings" class="size-5"></i> <span>Settings</span>
       </a>
     </li>
     <li>
       <a href="/help" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-text/90 hover:bg-purple-600/15 hover:text-purple-400 transition-all duration-200">
-        <span class="text-lg">❓</span> <span>Help</span>
+        <i data-lucide="circle-help" class="size-5"></i> <span>Help</span>
       </a>
     </li>
   </ul>
@@ -180,61 +181,88 @@
   <div class="p-3 border-t border-border">
     <%if(user){%>
       <% if(user.image){ %>
-        
-           <img src="<%= user.image %>" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
-        <span class="text-text font-bold text-md tracking-tighter"><%=user.name || user.username%></span>
-        
-       
+        <div class="flex items-center gap-2 px-2 py-2">
+          <img src="<%= user.image %>" class="outline outline-green-600 h-8 w-8 rounded-full object-cover">
+          <span class="text-text font-bold text-sm tracking-tighter truncate"><%=user.name || user.username%></span>
+        </div>
       <% } else { %>
-        
-          <img src="/images/default-avatar.png" class="outline outline-green-600 h-10 w-10 rounded-full object-cover">
-          <span class="text-text font-bold text-md tracking-tighter"><%=user.name || user.username%></span>
-          
-        
+        <div class="flex items-center gap-2 px-2 py-2">
+          <img src="/images/default-avatar.png" class="outline outline-green-600 h-8 w-8 rounded-full object-cover">
+          <span class="text-text font-bold text-sm tracking-tighter truncate"><%=user.name || user.username%></span>
+        </div>
       <% } %>
 
       <a href="/logout" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-danger hover:bg-danger/15 transition-all duration-200">
-      <span class="text-lg">🚪</span> <span>Logout</span>
-    </a>
+        <i data-lucide="log-out" class="size-5"></i> <span>Logout</span>
+      </a>
       <%}else{%>
-        <a href="/login" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-blue-600 hover:bg-blue-400 transition-all duration-200">
-      <span class="text-lg">🚪</span> <span>Login</span>
-    </a>
+        <a href="/login" class="flex items-center gap-3 px-4 py-2.5 rounded-xl font-semibold text-blue-500 hover:bg-blue-500/15 transition-all duration-200">
+          <i data-lucide="log-in" class="size-5"></i> <span>Login</span>
+        </a>
        <%}%>
     
   </div>
 </div>
-        <button id ="asis" class=" fixed bottom-6 right-6 z-30 rounded-full  hover:scale-150 transition-all duration-300"><img src="/gifs/ai_assistant_clapper_purple.gif" class="  object-center rounded-full h-20 w-20" ></button>
-                   
-      <%if(product){%>
-<div id="asisbox" class="flex flex-col fixed top-20 right-4 bottom-40 z-50 bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-2xl shadow-2xl overflow-hidden">
+<button id="asis" class="fixed bottom-6 right-6 z-30 rounded-full shadow-xl shadow-purple-900/40 hover:scale-110 transition-all duration-300 group">
+  <img src="/gifs/ai_assistant_clapper_purple.gif" class="object-center rounded-full h-16 w-16 ring-2 ring-purple-600/60 group-hover:ring-purple-500 transition-all">
+</button>
+
+<%if(product){%>
+<div id="asisbox" class="flex flex-col fixed top-16 right-4 bottom-28 z-50 bg-surface w-full max-w-sm border border-purple-600/40 rounded-2xl shadow-2xl shadow-purple-900/30 overflow-hidden transition-all duration-300">
 <%}else{%>
-<div id="asisbox" class="flex flex-col fixed top-20 right-4 bottom-40 z-50 bg-surface w-full max-w-md md:max-w-md outline outline-2 outline-purple-600 border border-border rounded-2xl shadow-2xl overflow-hidden hidden">
+<div id="asisbox" class="flex flex-col fixed top-16 right-4 bottom-28 z-50 bg-surface w-full max-w-sm border border-purple-600/40 rounded-2xl shadow-2xl shadow-purple-900/30 overflow-hidden transition-all duration-300 hidden">
 <%}%>
-
-    <div class="px-4 py-3 border-b border-border">
-        <h1 class="text-text font-bold text-xl text-center tracking-tight italic">Moxie</h1>
+  <div class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-purple-900/50 to-surface border-b border-purple-600/30">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-purple-600/20 flex items-center justify-center">
+        <i data-lucide="bot" class="size-4 text-purple-400"></i>
+      </div>
+      <div>
+        <h1 class="text-text font-bold text-sm tracking-tight">Moxie</h1>
+        <p class="text-purple-400 text-xs">AI Movie Assistant</p>
+      </div>
     </div>
-
-    <div class="flex-1 overflow-y-auto text-center px-4 py-3 space-y-2">
-      
-
-        <% if(product){ %>
-            <p class="font-bold text-text text-lg tracking-tight px-2"><%- product %></p>
-        <% } else { %>
-            <p class="font-medium text-text/70 text-sm tracking-tight ">speak your mind lil bro</p>
-        <% } %>
+    <button id="asisClose" class="p-1.5 rounded-lg hover:bg-border/50 transition-colors">
+      <i data-lucide="x" class="size-4 text-muted"></i>
+    </button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+    <% if(product){ %>
+      <div class="bg-purple-600/10 border border-purple-600/20 rounded-xl p-3">
+        <div class="flex items-start gap-2 mb-2">
+          <div class="w-6 h-6 rounded-full bg-purple-600/30 flex items-center justify-center shrink-0 mt-0.5">
+            <i data-lucide="sparkles" class="size-3 text-purple-400"></i>
+          </div>
+          <span class="text-xs font-semibold text-purple-400">Moxie</span>
+        </div>
+        <div class="text-text text-sm leading-relaxed pl-8"><%- product %></div>
+      </div>
+    <% } else { %>
+      <div class="flex flex-col items-center justify-center h-full gap-3 py-8 text-center">
+        <div class="w-14 h-14 rounded-full bg-purple-600/10 flex items-center justify-center">
+          <i data-lucide="sparkles" class="size-7 text-purple-400/70"></i>
+        </div>
+        <p class="font-semibold text-text text-sm">Ask me anything about movies!</p>
+        <p class="text-muted text-xs max-w-48">I can recommend films, suggest similar titles, and more.</p>
+      </div>
+    <% } %>
+  </div>
+  <div class="px-3 py-3 border-t border-border bg-surface/80 backdrop-blur-sm">
+    <div class="flex items-center gap-2">
+      <form class="flex flex-1 items-center gap-2 bg-page rounded-xl border border-border focus-within:border-purple-600 transition-colors overflow-hidden px-3 py-1.5" method="post" action="/ai">
+        <i data-lucide="message-circle" class="size-4 text-muted shrink-0"></i>
+        <input name="aiwaladata" class="flex-1 bg-transparent text-sm text-text placeholder:text-muted/60 focus:outline-none py-1" placeholder="Ask about movies...">
+        <button type="submit" class="p-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white transition-colors shrink-0">
+          <i data-lucide="send" class="size-3.5"></i>
+        </button>
+      </form>
+      <form method="post" action="/clear">
+        <button type="submit" title="Clear chat" class="p-2 rounded-xl border border-border hover:bg-danger/10 hover:border-danger/50 text-muted hover:text-danger transition-all">
+          <i data-lucide="trash-2" class="size-4"></i>
+        </button>
+      </form>
     </div>
-       <div class="flex items-center gap-2 px-3 py-3 border-t border-border">
-    <form class="flex flex-1 gap-2" method="post" action="/ai">
-        <input name="aiwaladata" class="px-4 py-2 flex-1 min-w-0 bg-transparent outline outline-1 outline-border focus:outline-purple-600 border border-border rounded-lg text-sm placeholder:text-text/40" placeholder="Likho balak">
-        <button type="submit" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors">Send</button>
-    </form>
-    <form method="post" action="/clear">
-        <button type="submit" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-colors">Clear</button>
-    </form>
-</div>
-
+  </div>
 </div>
         
       <div class="sticky left-0 right-0 z-30 top-20 flex gap-2 justify-center mt-1">
@@ -309,12 +337,20 @@
     <script>
   let asis = document.getElementById("asis");
                 let asisbox = document.getElementById("asisbox");
+                let asisClose = document.getElementById("asisClose");
                 let prof = document.getElementById("prof");
                 let probtn = document.getElementById("profbtn");
                 const themeToggle = document.getElementById('themeToggle');
           asis.onclick = function(e){
   e.stopPropagation();
   asisbox.classList.toggle("hidden");
+}
+
+if (asisClose) {
+  asisClose.onclick = function(e) {
+    e.stopPropagation();
+    asisbox.classList.add("hidden");
+  }
 }
 
 if (probtn) {
@@ -351,6 +387,7 @@ function showToast(message) {
   container.appendChild(toast);
   setTimeout(() => toast.remove(), 2000);
 }
+lucide.createIcons();
                 </script>
                 </body>
    
